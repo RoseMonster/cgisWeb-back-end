@@ -33,7 +33,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Maven template
-target/
-.mvn
