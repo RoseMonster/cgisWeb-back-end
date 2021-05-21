@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muzg.cgis.dao.LoginDao">
+    <select id="findUsername" resultType="java.lang.String">
+        select
+          username
+        from
+          cgis_admain
+        where
+          username = #{username}
+        and
+          admain_type = '02'
+    </select>
+    <select id="findPassword" resultType="java.lang.String">
+        select
+            password
+        from
+            cgis_admain
+        where
+            username = #{username}
+        and
+            password = #{password}
+        and
+            admain_type = '02'
+    </select>
+
+    <select id="superFindUsername" resultType="java.lang.String">
+        select
+            username
+        from
+            cgis_admain
+        where
+            username = #{username}
+          and
+            admain_type = '01'
+    </select>
+    <select id="superFindPassword" resultType="java.lang.String">
+        select
+            password
+        from
+            cgis_admain
+        where
+            username = #{username}
+          and
+            password = #{password}
+          and
+            admain_type = '01'
+    </select>
+</mapper>

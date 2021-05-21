@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muzg.cgis.dao.NavDao">
+    <sql id="pointAttribute">
+        id,lng,lat,isBan,adj,navType
+    </sql>
+    <resultMap id="allPointMap" type="point">
+        <id property="id" column="id"/>
+        <result property="lng" column="lng"/>
+        <result property="lat" column="lat"/>
+        <result property="isBan" column="isBan"/>
+        <result property="adj" column="adj"/>
+        <result property="navType" column="navType"/>
+    </resultMap>
+    <select id="selectAllPoint" resultMap="allPointMap">
+        select <include refid="pointAttribute"/>
+        from
+        cgis_point;
+    </select>
+
+    <select id="pointCount" resultType="int">
+        select
+          count (id)
+        from
+          cgis_point
+    </select>
+
+    <select id="selectPointByid" resultType="point">
+        select
+          id,lng,lat,isBan,adj,navType
+        from
+          cgis_point
+        where
+          id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muzg.cgis.dao.BoundaryDao">
+    <sql id="attribute">
+        id,build_name,descript,build_id,type_id,lng,lat
+    </sql>
+    <resultMap id="allBuildMap" type="build">
+        <id property="id" column="id"/>
+        <result property="buildName" column="build_name"/>
+        <result property="descript" column="descript"/>
+        <result property="buildId" column="build_id"/>
+        <result property="typeId" column="type_id"/>
+        <result property="lng" column="lng"/>
+        <result property="lat" column="lat"/>
+    </resultMap>
+    <resultMap id="allErrorMap" type="error">
+        <id property="id" column="id"/>
+        <result property="errorDescript" column="error_descript"/>
+        <result property="buildId" column="build_id"/>
+        <result property="createDate" column="create_date"/>
+    </resultMap>
+    <select id="selectAllBuild" resultMap="allBuildMap">
+        select <include refid="attribute"/>
+        from
+        cgis_build;
+    </select>
+
+    <select id="selectPointByName" resultMap="allBuildMap" parameterType="java.lang.String">
+        select
+          <include refid="attribute"/>
+        from
+          cgis_build
+        where
+          build_name = #{buildName}
+    </select>
+
+    <select id="selectIdByName" resultType="java.lang.String">
+        select
+            type_id
+        from
+            cgis_type
+        where
+            type_name = #{typeName}
+    </select>
+
+    <select id="selectBuildById" resultMap="allBuildMap">
+        select
+            id,build_name,descript,build_id,type_id,lng,lat
+        from
+            cgis_build
+        where
+            type_id = #{typeId}
+    </select>
+
+    <insert id="insertError" parameterType="error">
+        insert into
+          cgis_error(id,error_descript,create_date,build_id)
+        values
+          (#{id},#{errorDescript},#{createDate},#{build_id})
+    </insert>
+
+    <select id="selectAllError" resultMap="allErrorMap">
+        select
+          id,error_descript,build_id,create_date
+        from
+          cgis_error
+    </select>
+</mapper>

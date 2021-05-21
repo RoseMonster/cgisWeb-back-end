@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muzg.cgis.dao.AdmainDao">
+    <insert id="pointInsert" parameterType="build">
+        insert into
+            cgis_build(id,build_name,descript,build_id,lng,lat,type_id)
+        values
+        (#{id},#{build_name},#{descript},#{build_id},#{lng},#{lat},#{type_id})
+    </insert>
+
+    <delete id="pointDelete">
+        delete from
+          cgis_build
+        where
+          id = #{id}
+    </delete>
+
+    <update id="pointUpdate">
+        update
+          cgis_build
+        set
+          build_name=#{build_name},descript=#{descript},build_id=#{build_id},lng=#{lng},lat=#{lat},type_id=#{type_id}
+        where
+          id=#{id}
+    </update>
+
+    <delete id="errorDelete">
+        delete from
+            cgis_error
+        where
+            id = #{id}
+    </delete>
+
+    <sql id="admainAttribute">
+        id,admain_id,admain_type,username,password
+    </sql>
+    <resultMap id="allAdmain" type="admain">
+        <id property="id" column="id"/>
+        <result property="admainId" column="admain_id"/>
+        <result property="admainType" column="admain_type"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+    <select id="selectAllAdmain" resultMap="allAdmain">
+        select <include refid="admainAttribute"/>
+        from
+        cgis_admain;
+    </select>
+
+    <insert id="admainInsert" parameterType="admain">
+        insert into
+            cgis_admain(id,admain_id,username,password)
+        values
+        (#{id},#{admain_id},#{username},#{password})
+    </insert>
+
+    <delete id="admainDelete">
+        delete from
+            cgis_admain
+        where
+            id = #{id}
+    </delete>
+
+    <update id="admainUpdate">
+        update
+            cgis_admain
+        set
+            admain_id=#{admain_id},username=#{username},password= #{password}
+        where
+            id=#{id}
+    </update>
+
+</mapper>
